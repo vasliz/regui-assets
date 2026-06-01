@@ -28,7 +28,7 @@ do
 		local l, m, n, o =
 			setmetatable({}, {
 				__index = function(_, key)
-					return h:GetMouseLocation()[key]
+					return (h:GetMouseLocation() - e.GuiService:GetGuiInset())[key]
 				end,
 			}), function(l, m)
 				for n, o in next, m do
@@ -3477,7 +3477,7 @@ local e = ad:NewReference(ak.LocalPlayer)
 aa.PlayerGui = ad:NewReference(e.PlayerGui)
 aa.Mouse = setmetatable({}, {
 	__index = function(_, key)
-		return b:GetMouseLocation()[key]
+		return (b:GetMouseLocation() - ah.GuiService:GetGuiInset())[key]
 	end,
 })
 local f = function() end
@@ -6609,6 +6609,7 @@ function p:AddDefaultTitleButtons()
 			Fill = true,
 			ClipsDescendants = true,
 			AutomaticSize = Enum.AutomaticSize.XY,
+			RichText = true,
 		}),
 	})
 	self:TagElements({ [self.TitleLabel] = "WindowTitle" })
