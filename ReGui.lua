@@ -26,7 +26,11 @@ do
 		local g, h, i, j = e.Players, e.UserInputService, e.RunService, e.TweenService
 		local k = c(g.LocalPlayer)
 		local l, m, n, o =
-			c(k:GetMouse()), function(l, m)
+			setmetatable({}, {
+				__index = function(_, key)
+					return h:GetMouseLocation()[key]
+				end,
+			}), function(l, m)
 				for n, o in next, m do
 					l[n] = o
 				end
@@ -3471,7 +3475,11 @@ local ah = aa.Services
 local aj, ak, b, c, d = ah.HttpService, ah.Players, ah.UserInputService, ah.RunService, ah.InsertService
 local e = ad:NewReference(ak.LocalPlayer)
 aa.PlayerGui = ad:NewReference(e.PlayerGui)
-aa.Mouse = ad:NewReference(e:GetMouse())
+aa.Mouse = setmetatable({}, {
+	__index = function(_, key)
+		return b:GetMouseLocation()[key]
+	end,
+})
 local f = function() end
 function GetAndRemove(g, h)
 	local i = h[g]
