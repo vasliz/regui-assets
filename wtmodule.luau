@@ -70,4 +70,21 @@ local function WeakGetDescendants(Object)
 	return Out
 end
 
-return cloneref, WeakGetChildren, WeakGetDescendants
+local function WeakGetPlayers(PlayersService)
+	local Good, Raw = pcall(function()
+		return PlayersService:GetPlayers()
+	end)
+	if not Good or type(Raw) ~= "table" then
+		return setmetatable({}, { __mode = "v" })
+	end
+
+	setmetatable(Raw, { __mode = "v" })
+	local Out = {}
+	for Index = 1, #Raw do
+		Out[Index] = ClonerefInstance(Raw[Index])
+	end
+
+	return Out
+end
+
+return cloneref, WeakGetChildren, WeakGetDescendants, WeakGetPlayers
